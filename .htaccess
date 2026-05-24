@@ -1,0 +1,11 @@
+# .htaccess
+
+Options -MultiViews
+RewriteEngine On
+
+# Jika file atau folder benar-benar ada, akses langsung
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect semua request ke index.php
+RewriteRule ^(.*)$ index.php?page=$1 [L,QSA]
