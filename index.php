@@ -60,7 +60,7 @@ if ($page === 'owner/dashboard') {
 }
 
 // =============================================
-// ROUTE MODUL PENJUAL (LENGKAP)
+// ROUTE MODUL PENJUAL
 // =============================================
 
 if ($page === 'penjual') {
@@ -152,7 +152,7 @@ if ($page === 'pembeli/hapus') {
 }
 
 // =============================================
-// ROUTE MODUL MOBIL (LENGKAP)
+// ROUTE MODUL MOBIL
 // =============================================
 
 if ($page === 'mobil') {
@@ -197,8 +197,15 @@ if ($page === 'mobil/hapus') {
     exit;
 }
 
+if ($page === 'mobil/detail') {
+    require_once 'controllers/Mobil.php';
+    $controller = new Mobil();
+    $controller->detail();
+    exit;
+}
+
 // =============================================
-// ROUTE MODUL PEMESANAN (LENGKAP)
+// ROUTE MODUL PEMESANAN
 // =============================================
 
 if ($page === 'pemesanan') {
@@ -229,17 +236,18 @@ if ($page === 'pemesanan/detail') {
     exit;
 }
 
-if ($page === 'pemesanan/hapus') {
+if ($page === 'pemesanan/cetak') {
     require_once 'controllers/Pemesanan.php';
     $controller = new Pemesanan();
-    $controller->hapus();
+    $controller->cetak();
     exit;
 }
 
 // =============================================
-// ROUTE MODUL PENJUALAN (LENGKAP)
+// ROUTE MODUL PENJUALAN
 // =============================================
 
+// Penjualan
 if ($page === 'penjualan') {
     require_once 'controllers/Penjualan.php';
     $controller = new Penjualan();
@@ -247,74 +255,38 @@ if ($page === 'penjualan') {
     exit;
 }
 
-if ($page === 'penjualan/proses') {
+if ($page === 'penjualan/bayar-dp') {
     require_once 'controllers/Penjualan.php';
     $controller = new Penjualan();
-    $controller->proses();
+    $controller->bayarDp();
     exit;
 }
 
-if ($page === 'penjualan/detail') {
+if ($page === 'penjualan/proses-bayar-dp') {
     require_once 'controllers/Penjualan.php';
     $controller = new Penjualan();
-    $controller->detail();
+    $controller->prosesBayarDp();
     exit;
 }
 
-if ($page === 'penjualan/cetak') {
+if ($page === 'penjualan/bayar-pelunasan') {
     require_once 'controllers/Penjualan.php';
     $controller = new Penjualan();
-    $controller->cetak();
+    $controller->bayarPelunasan();
     exit;
 }
 
-// =============================================
-// ROUTE MODUL PEMBELIAN (LENGKAP)
-// =============================================
-
-if ($page === 'pembelian') {
-    require_once 'controllers/Pembelian.php';
-    $controller = new Pembelian();
-    $controller->index();
+if ($page === 'penjualan/proses-bayar-pelunasan') {
+    require_once 'controllers/Penjualan.php';
+    $controller = new Penjualan();
+    $controller->prosesBayarPelunasan();
     exit;
 }
 
-if ($page === 'pembelian/proses') {
-    require_once 'controllers/Pembelian.php';
-    $controller = new Pembelian();
-    $controller->proses();
-    exit;
-}
-
-if ($page === 'pembelian/detail') {
-    require_once 'controllers/Pembelian.php';
-    $controller = new Pembelian();
-    $controller->detail();
-    exit;
-}
-
-// =============================================
-// ROUTE MODUL PEMBAYARAN (LENGKAP)
-// =============================================
-
-if ($page === 'pembayaran') {
-    require_once 'controllers/Pembayaran.php';
-    $controller = new Pembayaran();
-    $controller->index();
-    exit;
-}
-
-if ($page === 'pembayaran/validasi') {
-    require_once 'controllers/Pembayaran.php';
-    $controller = new Pembayaran();
-    $controller->validasi();
-    exit;
-}
-
-if ($page === 'pembayaran/kwitansi') {
-    require_once 'controllers/Pembayaran.php';
-    $controller = new Pembayaran();
-    $controller->kwitansi();
+if ($page === 'penjualan/cetak-kwitansi') {
+    require_once 'controllers/Penjualan.php';
+    $controller = new Penjualan();
+    $controller->cetakKwitansi();
     exit;
 }
 
@@ -365,6 +337,49 @@ if ($page === 'laporan/stok') {
     require_once 'controllers/Laporan.php';
     $controller = new Laporan();
     $controller->stok();
+    exit;
+}
+
+// =============================================
+// ROUTE MODUL SURAT
+// =============================================
+
+if ($page === 'surat') {
+    require_once 'controllers/Surat.php';
+    $controller = new Surat();
+    $controller->index();
+    exit;
+}
+
+if ($page === 'surat/proses') {
+    require_once 'controllers/Surat.php';
+    $controller = new Surat();
+    $controller->proses();
+    exit;
+}
+
+// =============================================
+// ROUTE MODUL PENGIRIMAN
+// =============================================
+
+if ($page === 'pengiriman') {
+    require_once 'controllers/Pengiriman.php';
+    $controller = new Pengiriman();
+    $controller->index();
+    exit;
+}
+
+if ($page === 'pengiriman/proses') {
+    require_once 'controllers/Pengiriman.php';
+    $controller = new Pengiriman();
+    $controller->proses();
+    exit;
+}
+
+if ($page === 'pengiriman/cetak-surat-jalan') {
+    require_once 'controllers/Pengiriman.php';
+    $controller = new Pengiriman();
+    $controller->cetakSuratJalan();
     exit;
 }
 

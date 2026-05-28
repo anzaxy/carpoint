@@ -35,14 +35,13 @@ class PenjualanModel {
         $stmt->bindParam(':jenis_bayar', $data['jenis_bayar']);
         $stmt->bindParam(':status', $data['status']);
         $stmt->bindParam(':bukti_tf', $data['bukti_tf']);
-        $stmt->execute();
-        return $this->conn->lastInsertId();
+        return $stmt->execute();
     }
 
-    // Insert penjualan dengan foto KTP
+    // Insert penjualan
     public function insertPenjualan($data) {
-        $query = "INSERT INTO penjualan_mobil (id_pesan, no_faktur, tgl_pj_mobil, harga_jual, dp_dibayar, sisa_pembayaran, status_penjualan, foto_ktp) 
-                  VALUES (:id_pesan, :no_faktur, :tgl_penjualan, :harga_jual, :dp_dibayar, :sisa_pembayaran, :status_penjualan, :foto_ktp)";
+        $query = "INSERT INTO penjualan_mobil (id_pesan, no_faktur, tgl_pj_mobil, harga_jual, dp_dibayar, sisa_pembayaran, status_penjualan) 
+                  VALUES (:id_pesan, :no_faktur, :tgl_penjualan, :harga_jual, :dp_dibayar, :sisa_pembayaran, :status_penjualan)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id_pesan', $data['id_pesan']);
         $stmt->bindParam(':no_faktur', $data['no_faktur']);
@@ -51,7 +50,6 @@ class PenjualanModel {
         $stmt->bindParam(':dp_dibayar', $data['dp_dibayar']);
         $stmt->bindParam(':sisa_pembayaran', $data['sisa_pembayaran']);
         $stmt->bindParam(':status_penjualan', $data['status_penjualan']);
-        $stmt->bindParam(':foto_ktp', $data['foto_ktp']);
         return $stmt->execute();
     }
 
@@ -93,29 +91,44 @@ class PenjualanModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
-    
+
     // Ambil penjualan untuk pengurusan surat
-    public function getPenjualanForSurat() {
-        $query = "SELECT pj.*, pb.nama as nama_pembeli, m.merk, m.model, s.id_surat, s.status as status_surat, s.jenis
-                  FROM penjualan_mobil pj
-                  JOIN pemesanan p ON pj.id_pesan = p.id_pesan
-                  JOIN pembeli pb ON p.id_pembeli = pb.id_pembeli
-                  JOIN mobil m ON p.id_mobil = m.id_mobil
-                  LEFT JOIN surat s ON pj.id_pj_mobil = s.id_pj_mobil
-                  WHERE pj.status_penjualan IN ('dp_lunas', 'proses_stnk', 'proses_bpkb')
-                  ORDER BY pj.tgl_pj_mobil DESC";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-    
-    // Update status penjualan by id_pj_mobil
-    public function updateStatusPenjualanById($id_pj_mobil, $status) {
-        $query = "UPDATE penjualan_mobil SET status_penjualan = :status WHERE id_pj_mobil = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':status', $status);
-        $stmt->bindParam(':id', $id_pj_mobil);
-        return $stmt->execute();
-    }
+public function getPenjualanForSurat() {
+    $query = "SELECT pj.*, pb.nama as nama_pembeli, m.merk, m.model
+              FROM penjualan_mobil pj
+              JOIN pemesanan p ON pj.id_pesan = p.id_pesan
+              JOIN pembeli pb ON p.id_pembeli = pb.id_pembeli
+              JOIN mobil m ON p.id_mobil = m.id_mobil
+              WHERE pj.status_penjualan IN ('dp_lunas', 'proses_stnk', 'proses_bpkb')
+              ORDER BY pj.tgl_pj_mobil DESC";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+// Ambil penjualan untuk pengiriman
+public function getPenjualanForPengiriman() {
+    $query = "SELECT pj.*, pb.nama as nama_pembeli, pb.alamat as alamat_pembeli, m.merk, m.model, m.plat,
+              op.id_pengiriman, op.jenis as jenis_pengiriman
+              FROM penjualan_mobil pj
+              JOIN pemesanan p ON pj.id_pesan = p.id_pesan
+              JOIN pembeli pb ON p.id_pembeli = pb.id_pembeli
+              JOIN mobil m ON p.id_mobil = m.id_mobil
+              LEFT JOIN opsi_pengiriman op ON pj.id_pj_mobil = op.id_pj_mobil
+              WHERE pj.status_penjualan = 'lunas'
+              ORDER BY pj.tgl_pj_mobil DESC";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+// Update status penjualan by id_pj_mobil
+public function updateStatusPenjualanById($id_pj_mobil, $status) {
+    $query = "UPDATE penjualan_mobil SET status_penjualan = :status WHERE id_pj_mobil = :id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':status', $status);
+    $stmt->bindParam(':id', $id_pj_mobil);
+    return $stmt->execute();
+}
 }
 ?>

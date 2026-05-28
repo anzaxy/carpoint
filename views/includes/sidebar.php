@@ -24,17 +24,17 @@
                 <h3 class="menu-title">Data Master</h3>
                 
                 <li class="<?= ($active_menu == 'mobil') ? 'active' : '' ?>">
-                    <a href="<?= base_url('index.php?page=admin/mobil') ?>"> 
+                    <a href="<?= base_url('index.php?page=mobil') ?>"> 
                         <i class="menu-icon fa fa-car"></i> Data Mobil 
                     </a>
                 </li>
                 <li class="<?= ($active_menu == 'pembeli') ? 'active' : '' ?>">
-                    <a href="<?= base_url('index.php?page=admin/pembeli') ?>"> 
+                    <a href="<?= base_url('index.php?page=pembeli') ?>"> 
                         <i class="menu-icon fa fa-users"></i> Data Pembeli 
                     </a>
                 </li>
                 <li class="<?= ($active_menu == 'penjual') ? 'active' : '' ?>">
-                    <a href="<?= base_url('index.php?page=admin/penjual') ?>"> 
+                    <a href="<?= base_url('index.php?page=penjual') ?>"> 
                         <i class="menu-icon fa fa-user-plus"></i> Data Penjual 
                     </a>
                 </li>
@@ -42,25 +42,36 @@
                 <h3 class="menu-title">Transaksi</h3>
                 
                 <li class="<?= ($active_menu == 'pemesanan') ? 'active' : '' ?>">
-                    <a href="<?= base_url('index.php?page=admin/pemesanan') ?>"> 
+                    <a href="<?= base_url('index.php?page=pemesanan') ?>"> 
                         <i class="menu-icon fa fa-shopping-cart"></i> Pemesanan 
                     </a>
                 </li>
                 <li class="<?= ($active_menu == 'penjualan') ? 'active' : '' ?>">
-                    <a href="<?= base_url('index.php?page=admin/penjualan') ?>"> 
+                    <a href="<?= base_url('index.php?page=penjualan') ?>"> 
                         <i class="menu-icon fa fa-money"></i> Penjualan 
                     </a>
                 </li>
                 <li class="<?= ($active_menu == 'pembelian') ? 'active' : '' ?>">
-                    <a href="<?= base_url('index.php?page=admin/pembelian') ?>"> 
+                    <a href="<?= base_url('index.php?page=pembelian') ?>"> 
                         <i class="menu-icon fa fa-exchange"></i> Pembelian 
                     </a>
                 </li>
 
+                <li class="<?= ($active_menu == 'surat') ? 'active' : '' ?>">
+    <a href="<?= base_url('index.php?page=surat') ?>"> 
+        <i class="menu-icon fa fa-file-text"></i> Urus Surat
+    </a>
+</li>
+<li class="<?= ($active_menu == 'pengiriman') ? 'active' : '' ?>">
+    <a href="<?= base_url('index.php?page=pengiriman') ?>"> 
+        <i class="menu-icon fa fa-truck"></i> Pengiriman
+    </a>
+</li>
+
                 <h3 class="menu-title">Laporan & Setting</h3>
                 
                 <li class="<?= ($active_menu == 'laporan') ? 'active' : '' ?>">
-                    <a href="<?= base_url('index.php?page=admin/laporan') ?>"> 
+                    <a href="<?= base_url('index.php?page=laporan') ?>"> 
                         <i class="menu-icon fa fa-file-text"></i> Laporan 
                     </a>
                 </li>
